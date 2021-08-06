@@ -2,9 +2,48 @@
 //
 
 #include <iostream>
+#include "Bank.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	Bank* itSchoolBank = new Bank();
+	bool isRunnning = true;
+	do
+	{
+		std::cout << "Meniu Principal\n";
+		std::cout << "1 -> Adaugare Cont\n";
+		std::cout << "2 -> Vizualizare Conturi\n";
+		std::cout << "3 -> Modificare Conturi\n";
+		std::cout << "Introduceti optiunea dorita: \n";
+		char optiune;
+		std::cin >> optiune;
+		switch (optiune)
+		{
+		case'1':
+			system("CLS");
+			itSchoolBank->adaugareCont();
+			break;
+		case'2':
+			system("CLS");
+			itSchoolBank->adaugareCont();
+
+			break;
+		case'9':
+			system("CLS");
+			std::cout << "Thank you\n";
+			isRunnning = false;
+			break;
+		default:
+			std::cout << "Optiunea nu este valida\n";
+
+			break;
+		}
+	} while (isRunnning);
+
+	
+		
+
+	delete itSchoolBank;
+
 }
 
