@@ -14,6 +14,7 @@ int main()
 		std::cout << "1 -> Adaugare Cont\n";
 		std::cout << "2 -> Vizualizare Conturi\n";
 		std::cout << "3 -> Modificare Conturi\n";
+		std::cout << "9 ->Exit\n";
 		std::cout << "Introduceti optiunea dorita: \n";
 		char optiune;
 		std::cin >> optiune;
@@ -25,7 +26,7 @@ int main()
 			break;
 		case'2':
 			system("CLS");
-			itSchoolBank->adaugareCont();
+			itSchoolBank->vizualizareConturi();
 
 			break;
 		case'9':

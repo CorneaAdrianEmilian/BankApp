@@ -34,19 +34,31 @@ void Bank::adaugareCont()
 	switch (optiune)
 	{
 	case '1':
+		system("CLS");
 		adaugareCont();
 		break;
 	default:
-
+		system("CLS");
 		break;
 	}
 }
 void Bank::vizualizareConturi()
 {
+	system("CLS");
 	std::cout << "Numarul de conturi in banca este: " <<m_ConturiBancare.size()<< std::endl;
 	for(int i=0; i<m_ConturiBancare.size();i++)
 	{
 		std::cout << "Contul " << i + 1 << " " << m_ConturiBancare[i]->getNume() << std::endl;
 
 	}
+	std::cout << "1 -> Revenire la meniul principal\n";
+		char temp;
+		std::cin >> temp;
+		switch (temp)
+		{
+		default:
+			system("CLS");
+			break;
+		}
 }
+
