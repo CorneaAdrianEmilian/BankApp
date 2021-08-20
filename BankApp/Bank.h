@@ -2,6 +2,8 @@
 #include "ContBancar.h"
 #include <vector>
 #include <iostream>
+#include <cstdlib>
+#include <windows.h>
 class Bank
 {
 	std::vector <ContBancar*> m_ConturiBancare;
@@ -11,6 +13,7 @@ public:
 	~Bank();
 	void adaugareCont();
 	void vizualizareConturi();
+	void modificareCont();
 
 };
 

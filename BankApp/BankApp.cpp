@@ -10,6 +10,7 @@ int main()
 	bool isRunnning = true;
 	do
 	{
+		system("CLS");
 		std::cout << "Meniu Principal\n";
 		std::cout << "1 -> Adaugare Cont\n";
 		std::cout << "2 -> Vizualizare Conturi\n";
@@ -26,8 +27,11 @@ int main()
 			break;
 		case'2':
 			system("CLS");
-			itSchoolBank->vizualizareConturi();
-
+			itSchoolBank->vizualizareConturi();  
+			break;
+		case'3':
+			system("CLS");
+			itSchoolBank->modificareCont();
 			break;
 		case'9':
 			system("CLS");
