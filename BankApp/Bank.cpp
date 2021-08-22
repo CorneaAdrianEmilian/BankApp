@@ -25,8 +25,17 @@ std::string Bank::createIban()
 
 Bank::Bank()
 {
+	FileManager* data = new FileManager();
+	data->readData();
+	if (data->dimensiuneData() > 0)
+	{
+		for (int i = 0; i < data->dimensiuneData(); i++)
+		{
+			m_ConturiBancare.push_back(data->getConturi(i));
+		}
+	}
+	delete data;
 }
-
 Bank::~Bank()
 {
 	m_ConturiBancare.clear();
@@ -42,8 +51,11 @@ void Bank::adaugareCont()
 	std::string prenume;
 	std::cin >> prenume;
 	std::string iban = createIban();
-	ContBancar* cont = new ContBancar(nume, prenume, iban);
+	ContBancar* cont = new ContBancar(nume, prenume, createIban());
 	m_ConturiBancare.push_back(cont);
+	FileManager* data = new FileManager(cont);
+	data->writeData();
+	delete data;
 	std::cout << "1 -> Crearea a unui cont\n";
 	std::cout << "2 -> Meniu principal\n";
 	char optiune;
@@ -65,7 +77,8 @@ void Bank::vizualizareConturi()
 	std::cout << "Numarul de conturi in banca este: " <<m_ConturiBancare.size()<< std::endl;
 	for(int i=0; i<m_ConturiBancare.size();i++)
 	{
-		std::cout << "Contul " << i + 1 << " " << m_ConturiBancare[i]->getNume() << std::endl;
+		std::cout << "Contul " << i + 1 << " " << m_ConturiBancare[i]->getNume()
+		<<' '<<m_ConturiBancare[i]->getIban()<< std::endl;
 
 	}
 	std::cout << "1 -> Revenire la meniul principal\n";

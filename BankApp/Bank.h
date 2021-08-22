@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <windows.h>
+#include "FileManager.h"
 class Bank
 {
 	std::vector <ContBancar*> m_ConturiBancare;
