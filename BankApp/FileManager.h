@@ -9,14 +9,17 @@ class FileManager
 	std::string prenume;
 	std::string iban;
 	std::vector <ContBancar*> conturiData;
-
-public:
+	static FileManager* instanta;
 	FileManager();
-	FileManager(ContBancar* contCurent);
+public:
+	void setAttributes(ContBancar* contCurent);
 	~FileManager();
-	void writeData();
+	void writeData(ContBancar* contCurent);
 	void readData();
 	ContBancar* getConturi(int index);
 	inline int dimensiuneData() { return conturiData.size(); };
+	static FileManager* getInstanta();
+	
+
 };
 

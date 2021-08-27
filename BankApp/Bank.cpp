@@ -1,5 +1,18 @@
 #include "Bank.h"
 
+void Bank::creareContAdmin()
+{
+	std::cout << "Introduceti username-ul:\n";
+	std::string nume;
+	std::cin >> nume;
+	std::cout << "Introduceti parola:\n";
+	std::string parola;
+	std::cin >> parola;
+	ContAdmin* cont = new ContAdmin(nume, parola);
+	LogIn* data = new LogIn();
+	data->writeFile(cont);
+	delete data;
+}
 std::string Bank::createIban()
 {
 	std::string iban = "RO";
@@ -25,7 +38,7 @@ std::string Bank::createIban()
 
 Bank::Bank()
 {
-	FileManager* data = new FileManager();
+	
 	data->readData();
 	if (data->dimensiuneData() > 0)
 	{
@@ -34,11 +47,12 @@ Bank::Bank()
 			m_ConturiBancare.push_back(data->getConturi(i));
 		}
 	}
-	delete data;
+	
 }
 Bank::~Bank()
 {
 	m_ConturiBancare.clear();
+	delete data;
 }
 
 void Bank::adaugareCont()
@@ -53,9 +67,7 @@ void Bank::adaugareCont()
 	std::string iban = createIban();
 	ContBancar* cont = new ContBancar(nume, prenume, createIban());
 	m_ConturiBancare.push_back(cont);
-	FileManager* data = new FileManager(cont);
-	data->writeData();
-	delete data;
+	data->writeData(cont);
 	std::cout << "1 -> Crearea a unui cont\n";
 	std::cout << "2 -> Meniu principal\n";
 	char optiune;

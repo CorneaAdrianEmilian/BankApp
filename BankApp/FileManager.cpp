@@ -1,10 +1,12 @@
 #include "FileManager.h"
 
-FileManager::FileManager()
+FileManager* FileManager::instanta = nullptr;
+FileManager::FileManager() 
 {
-}
 
-FileManager::FileManager(ContBancar* contCurent)
+};
+
+void FileManager::setAttributes(ContBancar* contCurent)
 {
 	nume = contCurent->getNume();
 	prenume = contCurent->getPrenume();
@@ -16,11 +18,11 @@ FileManager::~FileManager()
 	conturiData.clear();
 }
 
-void FileManager::writeData()
+void FileManager::writeData(ContBancar* contCurent)
 {
-	std::ofstream myFile("ConturiBancare.csv");
+	std::ofstream myFile("ConturiBancare.csv", std::ios::app);
 	//myFile << "Nume " << "Prenume " << "IBAN\n";
-	myFile << nume<<' ' << prenume<<' ' << iban << std::endl;
+	myFile <<contCurent->getNume()<<' ' << contCurent->getPrenume()<<' ' << contCurent->getIban() << std::endl;
 	myFile.close();
 }
 
@@ -39,3 +41,16 @@ ContBancar* FileManager::getConturi(int index)
 {
 	return conturiData.at(index);
 }
+
+FileManager* FileManager::getInstanta()
+{
+	if (instanta != nullptr) {
+		return instanta;
+	}
+	else {
+		instanta = new FileManager();
+		return instanta;
+	}
+}
+
+

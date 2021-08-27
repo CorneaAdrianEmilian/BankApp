@@ -1,11 +1,11 @@
 // BankApp.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
+#include "FileManager.h"
 #include <iostream>
 #include "Bank.h"
-
 int main()
 {
+	
 	Bank* itSchoolBank = new Bank();
 	bool isRunnning = true;
 	do
