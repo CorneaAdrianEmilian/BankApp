@@ -2,6 +2,7 @@
 
 void Bank::creareContAdmin()
 {
+	std::cout << "Creare cont admin\n";
 	std::cout << "Introduceti username-ul:\n";
 	std::string nume;
 	std::cin >> nume;
@@ -9,10 +10,45 @@ void Bank::creareContAdmin()
 	std::string parola;
 	std::cin >> parola;
 	ContAdmin* cont = new ContAdmin(nume, parola);
-	LogIn* data = new LogIn();
-	data->writeFile(cont);
-	delete data;
+	dataAdmin->writeFile(cont);
+	m_ConturiAdmin.push_back(cont);
+	system("CLS");
+
 }
+
+bool Bank::autentificare()
+{
+	std::string nume, parola;
+	for (int  i = 3; i != 0; i--)
+	{
+		std::cout << "Autentificare cont\nIncercari ramase:" << i << std::endl;
+		std::cout << "Introduceti username-ul:\n";
+		std::cin >> nume;
+		std::vector <ContAdmin*>::iterator it;
+		for (it = m_ConturiAdmin.begin(); it != m_ConturiAdmin.end(); it++)
+		{
+			if (nume == (*it)->getUserName())
+			{
+				std::cout << "Introduceti parola:\n";
+				std::cin >> parola;
+				if(parola==(*it)->getPassword())
+				{
+					std::cout << "Te-ai autentificat cu succes\n";
+					Sleep(1500);
+					return true;
+				}
+				break;
+			}
+		}
+		std::cout << "Autentificare esuata\n";
+		Sleep(1500);
+		system("CLS");
+	}
+	
+	return false;
+}
+
+
 std::string Bank::createIban()
 {
 	std::string iban = "RO";
@@ -38,7 +74,18 @@ std::string Bank::createIban()
 
 Bank::Bank()
 {
-	
+	dataAdmin->readFile();
+	if(dataAdmin->dimensiuneData()>0)
+	{
+		for (int i = 0; i < dataAdmin->dimensiuneData(); i++)
+		{
+			m_ConturiAdmin.push_back(dataAdmin->getConturi(i));
+		}
+
+	}
+	else
+		creareContAdmin();
+
 	data->readData();
 	if (data->dimensiuneData() > 0)
 	{

@@ -1,5 +1,6 @@
 #include "LogIn.h"
 
+LogIn* LogIn::instanta = nullptr;
 LogIn::LogIn()
 {
 }
@@ -8,6 +9,18 @@ LogIn::LogIn()
 LogIn::~LogIn()
 {
 	conturiAdmin.clear();
+}
+
+LogIn* LogIn::getInstanta()
+{
+	if(instanta != nullptr) {
+		return instanta;
+	}
+	else
+	{
+		instanta = new LogIn();
+		return instanta;
+	}
 }
 
 ContAdmin* LogIn::getConturi(int index)

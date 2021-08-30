@@ -7,46 +7,49 @@ int main()
 {
 	
 	Bank* itSchoolBank = new Bank();
-	bool isRunnning = true;
-	do
+	if(itSchoolBank->autentificare())
 	{
-		system("CLS");
-		std::cout << "Meniu Principal\n";
-		std::cout << "1 -> Adaugare Cont\n";
-		std::cout << "2 -> Vizualizare Conturi\n";
-		std::cout << "3 -> Modificare Conturi\n";
-		std::cout << "9 ->Exit\n";
-		std::cout << "Introduceti optiunea dorita: \n";
-		char optiune;
-		std::cin >> optiune;
-		switch (optiune)
+
+		bool isRunnning = true;
+		do
 		{
-		case'1':
 			system("CLS");
-			itSchoolBank->adaugareCont();
-			break;
-		case'2':
-			system("CLS");
-			itSchoolBank->vizualizareConturi();  
-			break;
-		case'3':
-			system("CLS");
-			itSchoolBank->modificareCont();
-			break;
-		case'9':
-			system("CLS");
-			std::cout << "Thank you\n";
-			isRunnning = false;
-			break;
-		default:
-			std::cout << "Optiunea nu este valida\n";
+			std::cout << "Meniu Principal\n";
+			std::cout << "1 -> Adaugare Cont\n";
+			std::cout << "2 -> Vizualizare Conturi\n";
+			std::cout << "3 -> Modificare Conturi\n";
+			std::cout << "9 ->Exit\n";
+			std::cout << "Introduceti optiunea dorita: \n";
+			char optiune;
+			std::cin >> optiune;
+			switch (optiune)
+			{
+			case'1':
+				system("CLS");
+				itSchoolBank->adaugareCont();
+				break;
+			case'2':
+				system("CLS");
+				itSchoolBank->vizualizareConturi();
+				break;
+			case'3':
+				system("CLS");
+				itSchoolBank->modificareCont();
+				break;
+			case'9':
+				system("CLS");
+				std::cout << "Thank you\n";
+				isRunnning = false;
+				break;
+			default:
+				std::cout << "Optiunea nu este valida\n";
 
-			break;
-		}
-	} while (isRunnning);
+				break;
+			}
+		} while (isRunnning);
 
-	
-		
+	}
+
 
 	delete itSchoolBank;
 
