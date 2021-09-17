@@ -18,6 +18,7 @@ int main()
 			std::cout << "1 -> Adaugare Cont\n";
 			std::cout << "2 -> Vizualizare Conturi\n";
 			std::cout << "3 -> Modificare Conturi\n";
+			std::cout << "4 -> Creare cont admin\n";
 			std::cout << "9 ->Exit\n";
 			std::cout << "Introduceti optiunea dorita: \n";
 			char optiune;
@@ -35,6 +36,10 @@ int main()
 			case'3':
 				system("CLS");
 				itSchoolBank->modificareCont();
+				break;
+			case'4':
+				system("CLS");
+				itSchoolBank->creareContAdmin();
 				break;
 			case'9':
 				system("CLS");

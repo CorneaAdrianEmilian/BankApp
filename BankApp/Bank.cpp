@@ -2,18 +2,99 @@
 
 void Bank::creareContAdmin()
 {
-	std::cout << "Creare cont admin\n";
-	std::cout << "Introduceti username-ul:\n";
+	system("CLS");
+	bool creare = true;
 	std::string nume;
-	std::cin >> nume;
-	std::cout << "Introduceti parola:\n";
-	std::string parola;
-	std::cin >> parola;
+		std::cout << "Creare cont admin\n";
+	while(creare)
+	{
+		std::cout << "Introduceti username-ul:\nIntre 3 si 16 caractere alphanumerice:\n";
+		std::cin >> nume;
+		int caractere = 0;
+		if (nume.size() < 2 && nume.size() > 17) {
+			std::cout << "Username-ul nu are numarul necesar de caractere\n";
+			Sleep(1000);
+			system("CLS");
+			continue;
+		}
+		for (int i = 0; i < nume.size(); i++)
+		{
+			if (nume.at(i) > 64 && nume.at(i) < 91)
+				caractere++;
+			if (nume.at(i) > 96 && nume.at(i) < 123)
+				caractere++;
+			if (nume.at(i) > 47 && nume.at(i) < 58)
+				caractere++;
+		}
+			if (caractere == nume.size())
+				creare = false;
+			else {
+				std::cout << "Creare cont esuata\n";
+				Sleep(1000);
+				system("CLS");
+			}
+	}
+	creare = true;
+	int literaMare = 0;
+	int caracterS = 0;
+	int literaMica = 0;
+		std::string parola;
+	while(creare)
+	{
+		std::cout << "Introduceti parola: intre 3-16 caractere alphanumerice,";
+		std::cout << " minim o litera mare si un caracter special\n";
+		// 3- 16 caracatere, alphanumerice, o litera mare, 1 caracter special
+		std::cin >> parola;
+		if (parola.size() < 2 && parola.size() > 17) {
+			std::cout << "Parola nu are numarul necesar de caractere\n";
+			Sleep(1000);
+			system("CLS");
+			continue;
+		}
+		for (int i = 0; i < parola.size(); i++) 
+		{
+			if (parola.at(i) > 64 && parola.at(i) < 91)
+				literaMare++;
+			if (parola.at(i) > 96 && parola.at(i) < 123)
+				literaMica++;
+			if (parola.at(i) > 32 && parola.at(i) < 48)
+				caracterS++;
+			if (parola.at(i) > 57 && parola.at(i) < 65)
+				caracterS++;
+			if (parola.at(i) > 90 && parola.at(i) < 97)
+				caracterS++;
+				
+			if (literaMare >= 1 && literaMica >= 1 && caracterS >= 1) {
+			std::cout << "Cont creat cu succes\n";
+			Sleep(1000);
+			creare = false;
+			break;
+			}
+		}
+		if (creare) {
+			std::cout << "Creare cont esuata\n";
+			Sleep(1000);
+			system("CLS");
+		}
+	}
 	ContAdmin* cont = new ContAdmin(nume, parola);
 	dataAdmin->writeFile(cont);
 	m_ConturiAdmin.push_back(cont);
-	system("CLS");
 
+	std::cout << "1 -> Crearea a unui cont\n";
+	std::cout << "2 -> Meniu principal\n";
+	char optiune;
+	std::cin >> optiune;
+	switch (optiune)
+	{
+	case '1':
+		system("CLS");
+		creareContAdmin();
+		break;
+	default:
+		system("CLS");
+		break;
+	}
 }
 
 bool Bank::autentificare()
@@ -40,6 +121,9 @@ bool Bank::autentificare()
 				break;
 			}
 		}
+		std::cout << "Introduceti parola:\n";
+		std::string temp;
+		std::cin >> temp;
 		std::cout << "Autentificare esuata\n";
 		Sleep(1500);
 		system("CLS");
@@ -100,22 +184,76 @@ Bank::~Bank()
 {
 	m_ConturiBancare.clear();
 	delete data;
+	delete dataAdmin;
 }
 
 void Bank::adaugareCont()
 {
 	system("CLS");
-	std::cout << "Introduceti numele utilizatorului: " << std::endl;
+	bool creare = true;
 	std::string nume;
-	std::cin >> nume;
-	std::cout << "Introduceti prenumele utilizatorului: " << std::endl;
+	
+	std::cout << "Creare cont:\n";
+	while (creare)
+	{
+		std::cout << "Introduceti numele\nIntre 3 si 16 caractere alfabetice:\n";
+		std::cin >> nume;
+		int caractere = 0;
+		if (nume.size() < 2 && nume.size() > 17) {
+			std::cout << "Numele nu are numarul necesar de caractere\n";
+			Sleep(1000);
+			system("CLS");
+			continue;
+		}
+		for (int i = 0; i < nume.size(); i++)
+		{
+			if (nume.at(i) > 64 && nume.at(i) < 91)
+				caractere++;
+			if (nume.at(i) > 96 && nume.at(i) < 123)
+				caractere++;
+		}
+		if (caractere == nume.size())
+			creare = false;
+		else {
+			std::cout << "Creare cont esuata\n";
+			Sleep(1000);
+			system("CLS");
+		}
+	}
+	creare = true;
 	std::string prenume;
-	std::cin >> prenume;
+	while (creare)
+	{
+		std::cout << "Introduceti prenumele\nIntre 3 si 16 caractere alfabetice:\n";
+		std::cin >> prenume;
+		int caractere = 0;
+		if (prenume.size() < 2 && prenume.size() > 17) {
+			std::cout << "Prenumele nu are numarul necesar de caractere\n";
+			Sleep(1000);
+			system("CLS");
+			continue;
+		}
+		for (int i = 0; i < prenume.size(); i++)
+		{
+			if (prenume.at(i) > 64 && prenume.at(i) < 91)
+				caractere++;
+			if (prenume.at(i) > 96 && prenume.at(i) < 123)
+				caractere++;
+		}
+		if (caractere == prenume.size())
+			creare = false;
+		else {
+			std::cout << "Creare cont esuata\n";
+			Sleep(1000);
+			system("CLS");
+		}
+	}
+	std::cout << "Creare cont reusita\n";
 	std::string iban = createIban();
 	ContBancar* cont = new ContBancar(nume, prenume, createIban());
 	m_ConturiBancare.push_back(cont);
 	data->writeData(cont);
-	std::cout << "1 -> Crearea a unui cont\n";
+	std::cout << "1 -> Crearea  unui cont\n";
 	std::cout << "2 -> Meniu principal\n";
 	char optiune;
 	std::cin >> optiune;
@@ -163,16 +301,6 @@ void Bank::modificareCont()
 	std::cin >> prenume; 
 	ContBancar* temp=nullptr ;
 	int foundIndex = 0;
-	/*for (int i=0;i< m_ConturiBancare.size();i++)
-	{
-		if (nume == m_ConturiBancare[i]->getNume() && prenume == m_ConturiBancare[i]->getPrenume())
-		{
-			foundIndex = i;
-			temp = m_ConturiBancare[i];
-			break;
-		}
-
-	}*/
 	std::vector <ContBancar*>::iterator it;
 	for (it= m_ConturiBancare.begin(); it != m_ConturiBancare.end(); it++)
 	{
@@ -212,8 +340,33 @@ void Bank::modificareCont()
 	}
 	else
 	{
-		std::cout << "Ce modificari doriti sa faceti?";
+		std::cout << "Ce modificari doriti sa faceti?\n";
+		std::cout << "1-> Modificare nume\n";
+		std::cout << "2-> Modificare prenume\n";
+		std::cout << "3-> Modificare sold\n";
+		std::cout << "4-> Stergere cont\n";
+		std::cout << "5-> Revenire la meniul principal\n";
+		char optiune;
+		std::cin >> optiune;
+
+		switch (optiune)
+		{
+		case '1':
+			std::cout << "going back\n";
+			break;
+		case '2':
+			adaugareCont();
+			break;
+		case'3':
+			modificareCont();
+			break;
+		case'4':
 		m_ConturiBancare.erase(it);
+
+			break;
+		default:
+			break;
+		}
 	}
 }
 

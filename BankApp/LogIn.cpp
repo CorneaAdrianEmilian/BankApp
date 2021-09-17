@@ -38,7 +38,7 @@ void LogIn::writeFile(ContAdmin* cont)
 
 void LogIn::readFile()
 {
-	std::ifstream myFile;
+	std::ifstream myFile("ConturiAdministratori");
 	std::string nume;
 	std::string parola;
 	while(myFile >>nume >>parola)
