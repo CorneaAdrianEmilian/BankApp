@@ -36,6 +36,18 @@ void LogIn::writeFile(ContAdmin* cont)
 	myfile.close();
 }
 
+void LogIn::overwriteFile(std::vector<ContAdmin*> conturi)
+{
+	std::vector <ContAdmin*>::iterator it;
+	std::ofstream myfile("ConturiAdministratori");
+	for (it = conturi.begin(); it != conturi.end(); it++)
+	{
+		myfile << (*it)->getUserName() << ' ' << (*it)->getPassword() << std::endl;
+
+	}
+	myfile.close();
+}
+
 void LogIn::readFile()
 {
 	std::ifstream myFile("ConturiAdministratori");

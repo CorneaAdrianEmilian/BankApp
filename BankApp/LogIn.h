@@ -15,6 +15,7 @@ public:
 	ContAdmin* getConturi(int index);
 	inline int dimensiuneData() { return conturiAdmin.size(); };
 	void writeFile(ContAdmin* cont);
+	void overwriteFile(std::vector <ContAdmin*> conturi);
 	void readFile();
 	static LogIn* getInstanta();
 };

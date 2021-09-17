@@ -19,7 +19,7 @@ public:
 	ContBancar* getConturi(int index);
 	inline int dimensiuneData() { return conturiData.size(); };
 	static FileManager* getInstanta();
-	
+	void overwriteFile(std::vector <ContBancar*> conturi);
 
 };
 

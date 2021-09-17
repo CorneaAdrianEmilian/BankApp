@@ -187,6 +187,87 @@ Bank::~Bank()
 	delete dataAdmin;
 }
 
+void Bank::modificareSold(std::vector <ContBancar*>::iterator iterator)
+{
+	int new_sold;
+	std::cout << "Introduceti noul sold:\n";
+	std::cin >> new_sold;
+	(*iterator)->setSoldValue(new_sold);
+}
+
+void Bank::modificareNume(std::vector <ContBancar*>::iterator iterator)
+{
+	system("CLS");
+	bool creare = true;
+	std::string nume;
+
+	std::cout << "Modificare nume:\n";
+	while (creare)
+	{
+		std::cout << "Introduceti numele\nIntre 3 si 16 caractere alfabetice:\n";
+		std::cin >> nume;
+		int caractere = 0;
+		if (nume.size() < 2 && nume.size() > 17) {
+			std::cout << "Numele nu are numarul necesar de caractere\n";
+			Sleep(1000);
+			system("CLS");
+			continue;
+		}
+		for (int i = 0; i < nume.size(); i++)
+		{
+			if (nume.at(i) > 64 && nume.at(i) < 91)
+				caractere++;
+			if (nume.at(i) > 96 && nume.at(i) < 123)
+				caractere++;
+		}
+		if (caractere == nume.size())
+			creare = false;
+		else {
+			std::cout << "Modificare nume esuata\n";
+			Sleep(1000);
+			system("CLS");
+		}
+	}
+	std::cout << "Modificare reusita\n"<< std::endl;
+	Sleep(1000);
+	(*iterator)->setNume(nume);
+}
+void Bank::modificarePrenume(std::vector <ContBancar*>::iterator iterator)
+{
+	system("CLS");
+	bool creare = true;
+	std::string prenume;
+	while (creare)
+	{
+		std::cout << "Introduceti prenumele\nIntre 3 si 16 caractere alfabetice:\n";
+		std::cin >> prenume;
+		int caractere = 0;
+		if (prenume.size() < 2 && prenume.size() > 17) {
+			std::cout << "Prenumele nu are numarul necesar de caractere\n";
+			Sleep(1000);
+			system("CLS");
+			continue;
+		}
+		for (int i = 0; i < prenume.size(); i++)
+		{
+			if (prenume.at(i) > 64 && prenume.at(i) < 91)
+				caractere++;
+			if (prenume.at(i) > 96 && prenume.at(i) < 123)
+				caractere++;
+		}
+		if (caractere == prenume.size())
+			creare = false;
+		else {
+			std::cout << "Modificare esuata\n";
+			Sleep(1000);
+			system("CLS");
+		}
+	}
+	std::cout << "Modificare prenume reusita\n";
+	Sleep(1000);
+	(*iterator)->setPrenume(prenume);
+}
+
 void Bank::adaugareCont()
 {
 	system("CLS");
@@ -352,17 +433,20 @@ void Bank::modificareCont()
 		switch (optiune)
 		{
 		case '1':
-			std::cout << "going back\n";
+			modificareNume(it);
+			data->overwriteFile(m_ConturiBancare);
 			break;
 		case '2':
-			adaugareCont();
+			modificarePrenume(it);
+			data->overwriteFile(m_ConturiBancare);
 			break;
 		case'3':
-			modificareCont();
+			modificareSold(it);
+			data->overwriteFile(m_ConturiBancare);
 			break;
 		case'4':
 		m_ConturiBancare.erase(it);
-
+		data->overwriteFile(m_ConturiBancare);
 			break;
 		default:
 			break;

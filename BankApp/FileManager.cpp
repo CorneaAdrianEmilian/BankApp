@@ -25,6 +25,17 @@ void FileManager::writeData(ContBancar* contCurent)
 	myFile <<contCurent->getNume()<<' ' << contCurent->getPrenume()<<' ' << contCurent->getIban() << std::endl;
 	myFile.close();
 }
+void FileManager::overwriteFile(std::vector<ContBancar*> conturi)
+{
+	std::vector <ContBancar*>::iterator it;
+	std::ofstream myfile("ConturiBancare.csv");
+	for (it = conturi.begin(); it != conturi.end(); it++)
+	{
+		myfile << (*it)->getNume() << ' ' << (*it)->getPrenume() << ' ' << (*it)->getIban() << std::endl;
+
+	}
+	myfile.close();
+}
 
 void FileManager::readData()
 {

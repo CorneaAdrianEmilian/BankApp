@@ -22,5 +22,8 @@ public:
 	void modificareCont();
 	void creareContAdmin();
 	bool autentificare();
+	void modificareNume(std::vector <ContBancar*>::iterator iterator);
+	void modificarePrenume(std::vector <ContBancar*>::iterator iterator);
+	void modificareSold(std::vector <ContBancar*>::iterator iterator);
 };
 
