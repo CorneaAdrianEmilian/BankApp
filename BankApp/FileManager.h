@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include "ContBancar.h"
 #include <fstream>
 #include<string>
@@ -9,19 +8,18 @@ class FileManager
 	std::string nume;
 	std::string prenume;
 	std::string iban;
-	std::vector<std::shared_ptr<ContBancar>> conturiData;
-	//std::vector <ContBancar*> conturiData;
+	std::vector <ContBancar*> conturiData;
+	static FileManager* instanta;
 	FileManager();
-	static std::shared_ptr<FileManager> instanta;
 public:
-	static std::shared_ptr<FileManager> getInstanta();
-	void setAttributes(std::shared_ptr<ContBancar> contCurent);
+	void setAttributes(ContBancar* contCurent);
 	~FileManager();
-	void writeData(std::shared_ptr<ContBancar> contCurent);
+	void writeData(ContBancar* contCurent);
 	void readData();
-	std::shared_ptr<ContBancar> getConturi(int index);
+	ContBancar* getConturi(int index);
 	inline int dimensiuneData() { return conturiData.size(); };
-	void overwriteFile(std::vector <std::shared_ptr<ContBancar>> conturi);
+	static FileManager* getInstanta();
+	void overwriteFile(std::vector <ContBancar*> conturi);
 
 };
 

@@ -1,10 +1,12 @@
 #include "FileManager.h"
-std::shared_ptr<FileManager> FileManager::instanta = nullptr;
+
+FileManager* FileManager::instanta = nullptr;
 FileManager::FileManager() 
 {
+
 };
 
-void FileManager::setAttributes(std::shared_ptr<ContBancar> contCurent)
+void FileManager::setAttributes(ContBancar* contCurent)
 {
 	nume = contCurent->getNume();
 	prenume = contCurent->getPrenume();
@@ -16,16 +18,16 @@ FileManager::~FileManager()
 	conturiData.clear();
 }
 
-void FileManager::writeData(std::shared_ptr<ContBancar> contCurent)
+void FileManager::writeData(ContBancar* contCurent)
 {
 	std::ofstream myFile("ConturiBancare.csv", std::ios::app);
 	//myFile << "Nume " << "Prenume " << "IBAN\n";
 	myFile <<contCurent->getNume()<<' ' << contCurent->getPrenume()<<' ' << contCurent->getIban() << std::endl;
 	myFile.close();
 }
-void FileManager::overwriteFile(std::vector<std::shared_ptr<ContBancar>> conturi)
+void FileManager::overwriteFile(std::vector<ContBancar*> conturi)
 {
-	std::vector <std::shared_ptr<ContBancar>>::iterator it;
+	std::vector <ContBancar*>::iterator it;
 	std::ofstream myfile("ConturiBancare.csv");
 	for (it = conturi.begin(); it != conturi.end(); it++)
 	{
@@ -40,24 +42,24 @@ void FileManager::readData()
 	std::ifstream myFile("ConturiBancare.csv");
 	while( myFile >>nume >>prenume >>iban)
 	{
-		std::shared_ptr<ContBancar> cont = std::make_shared <ContBancar>(nume, prenume,iban);
+		ContBancar* cont = new ContBancar(nume, prenume,iban);
 		conturiData.push_back(cont);
 	}
 
 }
 
-std::shared_ptr<ContBancar> FileManager::getConturi(int index)
+ContBancar* FileManager::getConturi(int index)
 {
 	return conturiData.at(index);
 }
 
-std::shared_ptr<FileManager> FileManager::getInstanta()
+FileManager* FileManager::getInstanta()
 {
 	if (instanta != nullptr) {
 		return instanta;
 	}
 	else {
-		instanta = std::make_unique<FileManager>();
+		instanta = new FileManager();
 		return instanta;
 	}
 }
