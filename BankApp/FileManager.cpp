@@ -53,7 +53,7 @@ ContBancar* FileManager::getConturi(int index)
 	return conturiData.at(index);
 }
 
-FileManager* FileManager::getInstanta()
+std::shared_ptr<FileManager> FileManager::getInstanta()
 {
 	if (instanta != nullptr) {
 		return instanta;

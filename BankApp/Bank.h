@@ -12,9 +12,10 @@ class Bank
 	std::vector <ContAdmin*> m_ConturiAdmin;
 	std::vector <ContBancar*> m_ConturiBancare;
 	std::string createIban();
-	FileManager* data = data->getInstanta();
+	std::shared_ptr<FileManager> data = data->getInstanta();
 	LogIn* dataAdmin = dataAdmin->getInstanta();
 public:
+	std::shared_ptr<FileManager> data = data->getInstanta();
 	Bank();
 	~Bank();
 	void adaugareCont();
