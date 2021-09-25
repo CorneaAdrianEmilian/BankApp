@@ -1,5 +1,4 @@
 #include "Bank.h"
-
 void Bank::creareContAdmin()
 {
 	system("CLS");
@@ -183,11 +182,11 @@ Bank::Bank()
 Bank::~Bank()
 {
 	m_ConturiBancare.clear();
-	delete data;
+	//delete data;
 	delete dataAdmin;
 }
 
-void Bank::modificareSold(std::vector <ContBancar*>::iterator iterator)
+void Bank::modificareSold(std::vector <std::shared_ptr<ContBancar>>::iterator iterator)
 {
 	int new_sold;
 	std::cout << "Introduceti noul sold:\n";
@@ -195,7 +194,7 @@ void Bank::modificareSold(std::vector <ContBancar*>::iterator iterator)
 	(*iterator)->setSoldValue(new_sold);
 }
 
-void Bank::modificareNume(std::vector <ContBancar*>::iterator iterator)
+void Bank::modificareNume(std::vector <std::shared_ptr<ContBancar>>::iterator iterator)
 {
 	system("CLS");
 	bool creare = true;
@@ -232,7 +231,7 @@ void Bank::modificareNume(std::vector <ContBancar*>::iterator iterator)
 	Sleep(1000);
 	(*iterator)->setNume(nume);
 }
-void Bank::modificarePrenume(std::vector <ContBancar*>::iterator iterator)
+void Bank::modificarePrenume(std::vector <std::shared_ptr<ContBancar>>::iterator iterator)
 {
 	system("CLS");
 	bool creare = true;
@@ -331,7 +330,7 @@ void Bank::adaugareCont()
 	}
 	std::cout << "Creare cont reusita\n";
 	std::string iban = createIban();
-	ContBancar* cont = new ContBancar(nume, prenume, createIban());
+	std::shared_ptr<ContBancar> cont = std::make_shared<ContBancar>(nume, prenume, createIban());
 	m_ConturiBancare.push_back(cont);
 	data->writeData(cont);
 	std::cout << "1 -> Crearea  unui cont\n";
@@ -380,9 +379,9 @@ void Bank::modificareCont()
 	std::cout << "Introduceti prenumele:\n";
 	std::string prenume;
 	std::cin >> prenume; 
-	ContBancar* temp=nullptr ;
+	std::shared_ptr<ContBancar> temp=nullptr ;
 	int foundIndex = 0;
-	std::vector <ContBancar*>::iterator it;
+	std::vector <std::shared_ptr<ContBancar>>::iterator it;
 	for (it= m_ConturiBancare.begin(); it != m_ConturiBancare.end(); it++)
 	{
 		if (nume == (*it)->getNume() && prenume == (*it)->getPrenume())
