@@ -1,12 +1,11 @@
 #include "Bank.h"
-
 void Bank::creareContAdmin()
 {
 	system("CLS");
 	bool creare = true;
 	std::string nume;
-		std::cout << "Creare cont admin\n";
-	while(creare)
+	std::cout << "Creare cont admin\n";
+	while (creare)
 	{
 		std::cout << "Introduceti username-ul:\nIntre 3 si 16 caractere alphanumerice:\n";
 		std::cin >> nume;
@@ -26,20 +25,20 @@ void Bank::creareContAdmin()
 			if (nume.at(i) > 47 && nume.at(i) < 58)
 				caractere++;
 		}
-			if (caractere == nume.size())
-				creare = false;
-			else {
-				std::cout << "Creare cont esuata\n";
-				Sleep(1000);
-				system("CLS");
-			}
+		if (caractere == nume.size())
+			creare = false;
+		else {
+			std::cout << "Creare cont esuata\n";
+			Sleep(1000);
+			system("CLS");
+		}
 	}
 	creare = true;
 	int literaMare = 0;
 	int caracterS = 0;
 	int literaMica = 0;
-		std::string parola;
-	while(creare)
+	std::string parola;
+	while (creare)
 	{
 		std::cout << "Introduceti parola: intre 3-16 caractere alphanumerice,";
 		std::cout << " minim o litera mare si un caracter special\n";
@@ -51,7 +50,7 @@ void Bank::creareContAdmin()
 			system("CLS");
 			continue;
 		}
-		for (int i = 0; i < parola.size(); i++) 
+		for (int i = 0; i < parola.size(); i++)
 		{
 			if (parola.at(i) > 64 && parola.at(i) < 91)
 				literaMare++;
@@ -63,12 +62,12 @@ void Bank::creareContAdmin()
 				caracterS++;
 			if (parola.at(i) > 90 && parola.at(i) < 97)
 				caracterS++;
-				
+
 			if (literaMare >= 1 && literaMica >= 1 && caracterS >= 1) {
-			std::cout << "Cont creat cu succes\n";
-			Sleep(1000);
-			creare = false;
-			break;
+				std::cout << "Cont creat cu succes\n";
+				Sleep(1000);
+				creare = false;
+				break;
 			}
 		}
 		if (creare) {
@@ -100,7 +99,7 @@ void Bank::creareContAdmin()
 bool Bank::autentificare()
 {
 	std::string nume, parola;
-	for (int  i = 3; i != 0; i--)
+	for (int i = 3; i != 0; i--)
 	{
 		std::cout << "Autentificare cont\nIncercari ramase:" << i << std::endl;
 		std::cout << "Introduceti username-ul:\n";
@@ -112,7 +111,7 @@ bool Bank::autentificare()
 			{
 				std::cout << "Introduceti parola:\n";
 				std::cin >> parola;
-				if(parola==(*it)->getPassword())
+				if (parola == (*it)->getPassword())
 				{
 					std::cout << "Te-ai autentificat cu succes\n";
 					Sleep(1500);
@@ -128,7 +127,7 @@ bool Bank::autentificare()
 		Sleep(1500);
 		system("CLS");
 	}
-	
+
 	return false;
 }
 
@@ -159,7 +158,7 @@ std::string Bank::createIban()
 Bank::Bank()
 {
 	dataAdmin->readFile();
-	if(dataAdmin->dimensiuneData()>0)
+	if (dataAdmin->dimensiuneData() > 0)
 	{
 		for (int i = 0; i < dataAdmin->dimensiuneData(); i++)
 		{
@@ -178,16 +177,16 @@ Bank::Bank()
 			m_ConturiBancare.push_back(data->getConturi(i));
 		}
 	}
-	
+
 }
 Bank::~Bank()
 {
 	m_ConturiBancare.clear();
-	delete data;
+	//delete data;
 	delete dataAdmin;
 }
 
-void Bank::modificareSold(std::vector <ContBancar*>::iterator iterator)
+void Bank::modificareSold(std::vector <std::shared_ptr<ContBancar>>::iterator iterator)
 {
 	int new_sold;
 	std::cout << "Introduceti noul sold:\n";
@@ -195,7 +194,7 @@ void Bank::modificareSold(std::vector <ContBancar*>::iterator iterator)
 	(*iterator)->setSoldValue(new_sold);
 }
 
-void Bank::modificareNume(std::vector <ContBancar*>::iterator iterator)
+void Bank::modificareNume(std::vector <std::shared_ptr<ContBancar>>::iterator iterator)
 {
 	system("CLS");
 	bool creare = true;
@@ -228,11 +227,11 @@ void Bank::modificareNume(std::vector <ContBancar*>::iterator iterator)
 			system("CLS");
 		}
 	}
-	std::cout << "Modificare reusita\n"<< std::endl;
+	std::cout << "Modificare reusita\n" << std::endl;
 	Sleep(1000);
 	(*iterator)->setNume(nume);
 }
-void Bank::modificarePrenume(std::vector <ContBancar*>::iterator iterator)
+void Bank::modificarePrenume(std::vector <std::shared_ptr<ContBancar>>::iterator iterator)
 {
 	system("CLS");
 	bool creare = true;
@@ -273,7 +272,7 @@ void Bank::adaugareCont()
 	system("CLS");
 	bool creare = true;
 	std::string nume;
-	
+
 	std::cout << "Creare cont:\n";
 	while (creare)
 	{
@@ -331,7 +330,7 @@ void Bank::adaugareCont()
 	}
 	std::cout << "Creare cont reusita\n";
 	std::string iban = createIban();
-	ContBancar* cont = new ContBancar(nume, prenume, createIban());
+	std::shared_ptr<ContBancar> cont = std::make_shared<ContBancar>(nume, prenume, createIban());
 	m_ConturiBancare.push_back(cont);
 	data->writeData(cont);
 	std::cout << "1 -> Crearea  unui cont\n";
@@ -352,22 +351,22 @@ void Bank::adaugareCont()
 void Bank::vizualizareConturi()
 {
 	system("CLS");
-	std::cout << "Numarul de conturi in banca este: " <<m_ConturiBancare.size()<< std::endl;
-	for(int i=0; i<m_ConturiBancare.size();i++)
+	std::cout << "Numarul de conturi in banca este: " << m_ConturiBancare.size() << std::endl;
+	for (int i = 0; i < m_ConturiBancare.size(); i++)
 	{
 		std::cout << "Contul " << i + 1 << " " << m_ConturiBancare[i]->getNume()
-		<<' '<<m_ConturiBancare[i]->getIban()<< std::endl;
+			<< ' ' << m_ConturiBancare[i]->getIban() << std::endl;
 
 	}
 	std::cout << "1 -> Revenire la meniul principal\n";
-		char temp;
-		std::cin >> temp;
-		switch (temp)
-		{
-		default:
-			system("CLS");
-			break;
-		}
+	char temp;
+	std::cin >> temp;
+	switch (temp)
+	{
+	default:
+		system("CLS");
+		break;
+	}
 }
 
 void Bank::modificareCont()
@@ -379,15 +378,15 @@ void Bank::modificareCont()
 	std::cin >> nume;
 	std::cout << "Introduceti prenumele:\n";
 	std::string prenume;
-	std::cin >> prenume; 
-	ContBancar* temp=nullptr ;
+	std::cin >> prenume;
+	std::shared_ptr<ContBancar> temp = nullptr;
 	int foundIndex = 0;
-	std::vector <ContBancar*>::iterator it;
-	for (it= m_ConturiBancare.begin(); it != m_ConturiBancare.end(); it++)
+	std::vector <std::shared_ptr<ContBancar>>::iterator it;
+	for (it = m_ConturiBancare.begin(); it != m_ConturiBancare.end(); it++)
 	{
 		if (nume == (*it)->getNume() && prenume == (*it)->getPrenume())
 		{
-			
+
 			temp = *it;
 			break;
 		}
@@ -404,7 +403,7 @@ void Bank::modificareCont()
 		char optiune;
 		std::cin >> optiune;
 
-		switch(optiune)
+		switch (optiune)
 		{
 		case '1':
 			std::cout << "going back\n";
@@ -445,12 +444,11 @@ void Bank::modificareCont()
 			data->overwriteFile(m_ConturiBancare);
 			break;
 		case'4':
-		m_ConturiBancare.erase(it);
-		data->overwriteFile(m_ConturiBancare);
+			m_ConturiBancare.erase(it);
+			data->overwriteFile(m_ConturiBancare);
 			break;
 		default:
 			break;
 		}
 	}
 }
-

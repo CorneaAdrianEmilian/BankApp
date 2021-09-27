@@ -10,12 +10,11 @@
 class Bank
 {
 	std::vector <ContAdmin*> m_ConturiAdmin;
-	std::vector <ContBancar*> m_ConturiBancare;
+	std::vector <std::shared_ptr<ContBancar>> m_ConturiBancare;
 	std::string createIban();
 	std::shared_ptr<FileManager> data = data->getInstanta();
 	LogIn* dataAdmin = dataAdmin->getInstanta();
 public:
-	std::shared_ptr<FileManager> data = data->getInstanta();
 	Bank();
 	~Bank();
 	void adaugareCont();
@@ -23,8 +22,7 @@ public:
 	void modificareCont();
 	void creareContAdmin();
 	bool autentificare();
-	void modificareNume(std::vector <ContBancar*>::iterator iterator);
-	void modificarePrenume(std::vector <ContBancar*>::iterator iterator);
-	void modificareSold(std::vector <ContBancar*>::iterator iterator);
+	void modificareNume(std::vector <std::shared_ptr<ContBancar>>::iterator iterator);
+	void modificarePrenume(std::vector <std::shared_ptr<ContBancar>>::iterator iterator);
+	void modificareSold(std::vector <std::shared_ptr<ContBancar>>::iterator iterator);
 };
-
