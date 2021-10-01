@@ -391,7 +391,7 @@ void Bank::modificareCont()
 			break;
 		}
 	}
-
+	
 
 	if (temp == nullptr)
 	{
