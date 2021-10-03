@@ -1,4 +1,3 @@
-
 #include "FileManager.h"
 std::shared_ptr<FileManager> FileManager::instanta = nullptr;
 FileManager::FileManager()
@@ -61,4 +60,4 @@ std::shared_ptr<FileManager> FileManager::getInstanta()
 		instanta = std::make_unique<FileManager>();
 		return instanta;
 	}
-
+}

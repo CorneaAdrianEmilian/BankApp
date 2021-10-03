@@ -7,17 +7,17 @@
 class LogIn
 {
 private:
-	std::vector <ContAdmin*> conturiAdmin;
-	static LogIn* instanta;
+	std::vector <std::shared_ptr<ContAdmin>> conturiAdmin;
+	static std::shared_ptr<LogIn> instanta;
 	LogIn();
 public:
 	~LogIn();
-	ContAdmin* getConturi(int index);
+	std::shared_ptr<ContAdmin> getConturi(int index);
 	inline int dimensiuneData() { return conturiAdmin.size(); };
-	void writeFile(ContAdmin* cont);
-	void overwriteFile(std::vector <ContAdmin*> conturi);
+	void writeFile(std::shared_ptr<ContAdmin> cont);
+	void overwriteFile(std::vector <std::shared_ptr<ContAdmin>> conturi);
 	void readFile();
-	static LogIn* getInstanta();
+	static std::shared_ptr<LogIn> getInstanta();
 };
 
 

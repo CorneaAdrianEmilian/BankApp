@@ -1,6 +1,6 @@
 #include "LogIn.h"
 
-LogIn* LogIn::instanta = nullptr;
+std::shared_ptr<LogIn>LogIn::instanta = nullptr;
 LogIn::LogIn()
 {
 }
@@ -11,34 +11,35 @@ LogIn::~LogIn()
 	conturiAdmin.clear();
 }
 
-LogIn* LogIn::getInstanta()
+std::shared_ptr<LogIn> LogIn::getInstanta()
 {
 	if(instanta != nullptr) {
 		return instanta;
 	}
 	else
 	{
-		instanta = new LogIn();
+		std::unique_ptr<LogIn> temp(new LogIn);
+		instanta = std::move(temp);
 		return instanta;
 	}
 }
 
-ContAdmin* LogIn::getConturi(int index)
+std::shared_ptr<ContAdmin> LogIn::getConturi(int index)
 {
 	return conturiAdmin.at(index);
 }
 
 
-void LogIn::writeFile(ContAdmin* cont)
+void LogIn::writeFile(std::shared_ptr<ContAdmin> cont)
 {
 	std::ofstream myfile("ConturiAdministratori",std::ios::app);
 	myfile << cont->getUserName() << ' ' << cont->getPassword() << std::endl;
 	myfile.close();
 }
 
-void LogIn::overwriteFile(std::vector<ContAdmin*> conturi)
+void LogIn::overwriteFile(std::vector<std::shared_ptr<ContAdmin>> conturi)
 {
-	std::vector <ContAdmin*>::iterator it;
+	std::vector <std::shared_ptr<ContAdmin>>::iterator it;
 	std::ofstream myfile("ConturiAdministratori");
 	for (it = conturi.begin(); it != conturi.end(); it++)
 	{
@@ -55,7 +56,7 @@ void LogIn::readFile()
 	std::string parola;
 	while(myFile >>nume >>parola)
 	{
-		ContAdmin* cont = new ContAdmin(nume, parola);
+		std::shared_ptr<ContAdmin> cont = std::make_shared <ContAdmin>(nume, parola);
 		conturiAdmin.push_back(cont);
 	}
 }

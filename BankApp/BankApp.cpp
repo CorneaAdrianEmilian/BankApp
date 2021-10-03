@@ -6,7 +6,7 @@
 int main()
 {
 	
-	Bank* itSchoolBank = new Bank();
+	std::unique_ptr<Bank> itSchoolBank = std::make_unique <Bank>();
 	if(itSchoolBank->autentificare())
 	{
 
@@ -56,7 +56,7 @@ int main()
 	}
 
 
-	delete itSchoolBank;
+	
 
 }
 

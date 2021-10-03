@@ -76,7 +76,7 @@ void Bank::creareContAdmin()
 			system("CLS");
 		}
 	}
-	ContAdmin* cont = new ContAdmin(nume, parola);
+	std::shared_ptr<ContAdmin> cont =std::make_shared <ContAdmin>(nume, parola);
 	dataAdmin->writeFile(cont);
 	m_ConturiAdmin.push_back(cont);
 
@@ -104,7 +104,7 @@ bool Bank::autentificare()
 		std::cout << "Autentificare cont\nIncercari ramase:" << i << std::endl;
 		std::cout << "Introduceti username-ul:\n";
 		std::cin >> nume;
-		std::vector <ContAdmin*>::iterator it;
+		std::vector <std::shared_ptr<ContAdmin>>::iterator it;
 		for (it = m_ConturiAdmin.begin(); it != m_ConturiAdmin.end(); it++)
 		{
 			if (nume == (*it)->getUserName())
@@ -182,8 +182,7 @@ Bank::Bank()
 Bank::~Bank()
 {
 	m_ConturiBancare.clear();
-	//delete data;
-	delete dataAdmin;
+
 }
 
 void Bank::modificareSold(std::vector <std::shared_ptr<ContBancar>>::iterator iterator)
@@ -391,7 +390,7 @@ void Bank::modificareCont()
 			break;
 		}
 	}
-	
+
 
 	if (temp == nullptr)
 	{
